@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <metacontent="text/html; charset=windows-1251" />
+        <script type="text/javascript" src="jquery.js"></script>
+        <script type="text/javascript"> 
+            new_name = "";
+            j = "";
+            function AjaxFormRequest(result_id,form_id, url) {
+                var name = document.getElementsByName("name")[0].value;
+                var aject = ["великолепный", "восхитительный", "невероятный", "милейший", "удивительный", "блаженный", "пресвятейший", "почтеннейший", "добрейший", "дивный", "славный", "ослепительный", "обаятельный", "блистательный", "сногсшибательный", "эффектный", "безупречный"];
+                jQuery.ajax({ 
+                    url:     url, 
+                    type:     "POST", 
+                    dataType: "html", 
+                    data: jQuery("#"+form_id).serialize(),  
+                    success: function(response) { 
+                    i = getRandomInt(0, aject.length-1);
+                    if(new_name == name){
+                        alert("Рад видеть тебя снова, " + aject[j]+ " " + name + "!");
+                    }
+                    else{
+                        alert("Рад видеть тебя снова, " + aject[i]+ " " + name + "!");
+                        new_name = name;
+                        j = i;
+                    }
+                    
+                    }, 
+                    error: function(response) {
+                    alert("ОШИБКА");
+                    } 
+             }); 
+        }
+        function getRandomInt(min, max)
+        { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+   </script>
+    </head>
+    <body>
+        <h1>Тестовое задание</h1>
+        <form method="post" action="" id="form_id">
+            введите имя: <input type="text" name="name" value="Игорь" /><br/><br/>
+            <input type="button" value="Отправить" onclick="AjaxFormRequest('result_div_id', 'form_id','form.php')" />
+        </form>
+    </body>
+</html>
